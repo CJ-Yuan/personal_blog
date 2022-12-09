@@ -1,0 +1,99 @@
+.home-banner{
+    background: url(../../../assets/images/bj.jpg) center center / cover no-repeat;
+    position: absolute;
+    top: -60px;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    text-align: center;
+    color: #fff;
+    animation: header-banner 1s;
+    .header-informosomes{
+        margin-top: 43vh;
+        line-height: 1.5;
+        color: #eee;
+        h1{
+            font-size: 2.5rem;
+            animation: zoomIn 1s both;
+        }
+        .header-motto{
+            span{
+                font-size: 1.5rem;
+                color: #eee;
+            }
+            .header-fuhao{
+                opacity: 1;
+                animation: blink .7s infinite;
+            }
+        }
+    }
+    .header-down{
+        cursor: pointer;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        i{
+            font-size: 3rem;
+            caret-color: rgb(255, 255, 255);
+            color: #eee;
+            text-shadow: 0.1rem 0.1rem 0.2rem rgb(0 0 0 / 15%);
+            line-height: 1.5;
+            display: inline-block;
+            text-rendering: auto;
+            animation: down 1.5s infinite;
+            justify-content: center;
+            position: relative;
+        }
+    }
+}
+
+
+@keyframes header-banner {
+    0%{
+      opacity: 0;
+      transform: translateY(-50px);  
+    }
+    100%{
+        opacity: 1;
+        filter: none;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zoomIn {
+    0%{
+        opacity: 0;
+        transform: scale3d(.3,.3,.3);
+    }
+    50%{
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes down {
+    0%{
+        top: 0;
+        opacity: .4;
+    }
+    50%{
+        top: -16px;
+        opacity: 1;
+        filter: none;
+    }
+    100%{
+        top: 0;
+        opacity: .4;
+    }
+}

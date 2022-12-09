@@ -1,0 +1,51 @@
+.guestbook{
+    background-image: url(../../assets/images/bj5.jpg);
+    height: 100vh;
+    /* 背景图片自适应 */
+    background-attachment: fixed;
+    background-size: cover;
+    position: relative;
+    /* 背景图片定位 */
+    background-position:center center;
+    background-position-x: center;
+    background-position-y:center ;
+    .guestbook-div{
+        position: absolute;
+        width: 360px;
+        top: 35%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        z-index: 5;
+        margin: 0 auto;
+        color: #fff;
+        h1{
+           font-size: 2rem;
+        }
+        .guestbook-message{
+            display: flex;
+            justify-content: center;
+            height: 2.5rem;
+            margin-top: 2rem;
+            input{
+                outline: none;
+                width: 70%;
+                border-radius: 20px;
+                height: 100%;
+                padding: 0 1.25rem;
+                color: #eee;
+                border: 1px solid #fff;
+                background-color: transparent;
+            }
+            button{
+                outline: none;
+                border-radius: 20px;
+                height: 100%;
+                padding: 0 1.25rem;
+                border: 1px solid #fff;
+                margin-left: 12px;
+                
+            }
+        }
+    }
+}
