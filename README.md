@@ -1,9 +1,3 @@
-依赖：
-Less:npm install --save-dev less less-loader
-React-router:npm install --save react-router
-React-router-dom:npm install react-router-dom
-Axios:npm install --save axios
-redux:npm install --save redux
-react-redux:npm install --save react-redux
-redux-devtools/extension: npm i @redux-devtools/extension
-http-proxy-middleware: npm install http-proxy-middleware
+## 		  基于Node.JS + React 开发的前后端分离博客
+
+项目链接：http://www.yuan.hk.cn/
