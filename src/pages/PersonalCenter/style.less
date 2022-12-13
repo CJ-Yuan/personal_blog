@@ -1,0 +1,164 @@
+.personal{
+    display: flex;
+    flex: 1 0 auto;
+    width: 100%;
+    transform: .2s cubic-bezier(.4,0,.2,1);
+    .personal-wai{
+        flex: 1 1 auto;
+        width: 100%;
+        position: relative;
+        .personal-banner{
+            background: url(../../assets/images/bz1.jpg) center center / cover no-repeat;
+            position: absolute;
+            background-color: #49b1f5!important;
+            top: -60px;
+            left: 0;
+            right: 0;
+            height: 400px;
+            animation: personal-effect 1s;
+            h1{
+                animation: title-scale 1s;
+                position: absolute;
+                top: 12.5rem;
+                padding: 0 0.5rem;
+                width: 100%;
+                font-size: 2.5rem;
+                text-align: center;
+                color: #eee;
+            }
+        }
+        .personal-theme{
+            border-radius: 8px;
+            background: #fff!important;
+            color: #4c4948;
+            box-shadow: 0 4px 8px 6px rgba(7,17,27,.06)!important;
+            transition: all .3s;
+            max-width: 970px;
+            padding: 20px 30px;
+            margin: 380px auto 40px auto;
+            border-width: thin;
+            display: block;
+            animation: personal-main 1s;
+            outline: none;
+            text-decoration: none;
+            overflow-wrap: break-word;
+            position: relative;
+            white-space: normal;
+            .personal-wrapper{
+                border-top-left-radius: inherit;
+                border-top-right-radius: inherit;
+                // text-align: center;
+                .personal-info{
+                    border-top-left-radius: inherit;
+                    border-top-right-radius: inherit;
+                    span{
+                        font-size: 1.25rem;
+                        font-weight: 700;
+                    }
+                }
+                .personal-info-wrapper{
+                    border-bottom-left-radius: inherit;
+                    border-bottom-right-radius: inherit;
+                    margin-top: 1rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    flex: 1 1 auto;
+                    margin: -12px;
+                    .personal-info-tou{
+                        flex: 0 0 25%;
+                        max-width: 25%;
+                        .personal-button-img{
+                            background-color: transparent;
+                            border-style: none;
+                            .personal-imge{
+                                height: 110px;
+                                min-width: 110px;
+                                width: 110px;
+                                align-items: center;
+                                border-radius: 50%;
+                                display: inline-flex;
+                                justify-content: center;
+                                line-height: normal;
+                                position: relative;
+                                text-align: center;
+                                vertical-align: middle;
+                                overflow: hidden;
+                                img{
+                                    transition: all .5s;
+                                    border-radius: inherit;
+                                    display: inline-flex;
+                                    height: inherit;
+                                    width: inherit;
+                                }
+                            }
+                        }
+                    }
+                    .personal-info-geren{
+                        flex: 0 0 58.3333333333%;
+                        max-width: 58.3333333333%;
+                        width: 100%;
+                        padding: 7.5px;
+                        span{
+                            font-size: 1.25rem;
+                            font-weight: 500;
+                        }
+                        .personal-yi{
+                            border-style: none none inset;
+                            position: relative;
+                            box-sizing: border-box;
+                            height: auto;
+                            padding: 10px;
+                            font-size: 16px;
+                            display: block;
+                            width: 100%;
+                            font-weight: 400;
+                            line-height: 1.5;
+                            color: #212529;
+                            background-color: #fff;
+                            // background-clip: padding-box;
+                            appearance: none;
+                            // border-radius: 0.375rem;
+                            // border: 1px solid #2b4c6d;
+                        }
+                        .geren-button{
+                            height: 36px;
+                            min-width: 64px;
+                            padding: 0 16px;
+                            font-size: .875rem;
+                            color: rgba(0,0,0,.87);
+                            margin-top: 20px!important;
+                        }
+                    }
+                
+                }
+
+                
+            }
+        }
+    } 
+}
+
+@keyframes personal-effect {
+    0%{
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100%{
+        opacity: 1;
+        filter: none;
+        transform: translateY(0);
+    }
+}
+@keyframes personal-main {
+    0%{
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100%{
+        opacity: 1;
+        filter: none;
+        transform: translateY(0);
+    }
+}

@@ -9,11 +9,15 @@ import {combineReducers} from 'redux';
 import article from './article'
 import time from './time';
 import visit from './visit'
+import user from './user';
+import userinfo from './userinfo';
 
 const rootReducer = combineReducers({
     article,
     time,
     visit,
+    user,
+    userinfo
 })
 
 export default rootReducer

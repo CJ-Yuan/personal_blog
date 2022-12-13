@@ -2,12 +2,18 @@
 import React from 'react'
 import LevelMenu from './LevelMenu'
 import MultilevelMenu from './MultilevelMenu'
+import MenuPersonal from './MenuPersonal'
 import './index.less'
 
-export default function HeadNav() {
+export default function HeadNav(props) {
+    //用于判断是否登录
+    let succeed = props.succeed
+  // console.log(props.yuan,'123')
   //这是娱乐的子选项
   const yule = [
-    {title:'游戏',styles:'icon-service-fill',link:''},
+    {title:'相册',styles:'icon-xiangce1',link:''},
+    {title:'动态',styles:'icon-41shuoshuo',link:''},
+    {title:'游戏',styles:'icon-youxi',link:''},
   ]
 
   return (
@@ -27,14 +33,21 @@ export default function HeadNav() {
           {/* 首页 */}
           <LevelMenu styles={'icon-home'} title={'首页'} link={'/home'}/>
 
-          {/* 娱乐 */}
-          <MultilevelMenu styles={'icon-play'} title={'娱乐'} childopts={yule}/>
+          {/* 发现 */}
+          <MultilevelMenu styles={'icon-faxian'} title={'发现'} childopts={yule}/>
 
           {/* 留言板 */}
-          <LevelMenu styles={'icon-suggest'} title={'留言板'} link={'/guestbook'}/>
+          <LevelMenu styles={'icon-liuyan1'} title={'留言板'} link={'/guestbook'}/>
 
           {/* 关于 */}
-          <LevelMenu styles={'icon-vip'} title={'关于'} link={'/aboutme'}/>
+          <LevelMenu styles={'icon-dongtai'} title={'关于'} link={'/aboutme'}/>
+
+          {
+            //判断是否存在登录数据而进行渲染 ture 有 false 没有
+            // props.succeed ? <MenuPersonal /> : <LevelMenu styles={'icon-denglu'} title={'登录'} link={'/users'}/>
+            succeed ? <MenuPersonal succeed={succeed}/> : <LevelMenu styles={'icon-denglu'} title={'登录'} link={'/users'}/>
+          }
+          
         </div>
       </div>
     </nav>

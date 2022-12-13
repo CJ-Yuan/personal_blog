@@ -8,13 +8,12 @@ import api from '../../../../../api/'
 import './style.less'
 
 export default function SiteNews() {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(); 
     const runtimes = useSelector( data => data)
     useEffect(()=>{
         //访客量
-        api.getvisit().then((res)=>{
+        api.getvisit().then((res)=>{ 
         let data = res.data
-        console.log(data)
         //将获取到的访客量存储到redux中
         dispatch(getvisit(data))
 

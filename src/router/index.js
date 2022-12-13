@@ -3,6 +3,9 @@ import { Navigate } from "react-router-dom";
 import Home from '../pages/Home'
 import Guestbook from "../pages/Guestbook";
 import AboutMe from "../pages/AboutMe";
+import Users from "../pages/Users";
+import PersonalCenter from "../pages/PersonalCenter";
+
 const luyou = [
     {
         path:'/home',
@@ -15,6 +18,14 @@ const luyou = [
     {
         path:'/aboutme',
         element:<AboutMe />
+    },
+    {
+        path:'/users/*',
+        element:<Users />
+    },
+    {
+        path:'/personalcenter',
+        element:<PersonalCenter />
     },
     {
         path:'/',
