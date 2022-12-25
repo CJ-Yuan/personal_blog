@@ -1,5 +1,6 @@
 //这是首页内容组件
 import React,{useEffect} from 'react'
+import { Col, Row } from '@douyinfe/semi-ui';
 import api from '../../../api'
 import './style.less'
 //useSelector 用于读取数据 useDispatch 用于获取Dispatch对象
@@ -22,12 +23,14 @@ export default function Main() {
     },[dispatch])
 
 return (
-    <div className='main-content'>
+    <Row className='main-content'>
+        <Col span={0} md={6}>
         <Aside />
+        </Col>
         {
             // 进行判断是否获得数据
-            article.length > 0?  <Essay data={article}/> : <Loading />
+            article.length > 0?  <Col span={24} md={18}><Essay data={article}/></Col> : <Loading />
         }
-    </div>
+    </Row>
   )
 }

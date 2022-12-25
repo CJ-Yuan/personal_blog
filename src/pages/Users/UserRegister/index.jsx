@@ -1,13 +1,17 @@
 import React,{useState} from 'react'
+import { useNavigate } from 'react-router';
 import api from '../../../api';
+import {addCookei,seekCookei} from '../../../utils/operatecookie'
 import './style.less'
 
 export default function UserRegister() {
+  const navigate =  useNavigate();
   // 用于储存用户输入的账号密码和验证码
   const [username,setUsername] = useState("");
   const [password,setPassword] = useState("");
   const [authcode,setauthcode] = useState("");
-  // form 的执行函数
+  
+  // form表单的执行函数
   function onSubmitHandle(event){
     //取消 form 跳转
     event.preventDefault({});
@@ -15,40 +19,46 @@ export default function UserRegister() {
     const result = canonical(username,password)
     if(result){
       //通过账号密码验证后，再对验证码进行验证
-        //将cookie 转换成数组
-      let cookieverify = document.cookie.split(';').map(cookie=>cookie.split('='))
-      // 将转换成数组数据，再转换成对象
-      const kon = Object.fromEntries(cookieverify)
-      const code1 = kon[" authcode"];
-      const code2 = kon.authcode;
-      if(code1 === authcode || code2 === authcode){
-        api.postregUser({
-          username:username,
-          password:password
-        }).then((res)=>{
-          switch(res.data.status){
-            case 200:
-              alert('注册成功');
-              break;
-            case 1:
-              alert('用户已被注册');
-              break;
-            default:
-            alert('未知原因注册失败，请重新尝试');
-          }
-        })
+      // 对验证码cookei进行查找 要么返回值 要么返回null
+      let cookei = seekCookei('authcode')
+      if(cookei === null){
+        alert('验证码失效，请重新获取！')
       }else{
-        alert('请仔细核对验证码！注意区分大小写')
+        // 和用户输入的验证码进行判断
+        if(cookei === authcode){
+          api.postregUser({
+            email:username,
+            password:password
+          }).then((res)=>{
+            switch(res.data.status){
+              case 200:
+                alert('注册成功');
+                // 跳转到登录页面
+                navigate('/users/userslogin');
+                break;
+              case 1:
+                alert('用户已被注册');
+                break;
+              default:
+              alert('未知原因注册失败，请重新尝试');
+            }
+          })
+        }else{
+          alert('请仔细核对验证码！注意区分大小写')
+        }
       }
     }
   }
 
-  //发送验证码
+  //点击发送验证码的回调函数
   function sendemail(event){
+    // 判断邮箱账号是否为空
+    // if(username === ''){alert('请输入邮箱')}
+    // 定义正则匹配，用于账号邮箱验证
     const canonicalaccount = /^[A-Za-z0-9]+([_][A-Za-z0-9]+)*@([A-Za-z0-9]+\.)+[A-Za-z]{2,6}$/;
     // 获取按钮节点
     const btn = event.target
-    // 调用canonical对账号密码进行验证
+    // 调用canonical对账号邮箱进行验证
     let useraccount = canonicalaccount.test(username)
     //判断账号是否通过验证
     if(useraccount){
@@ -58,11 +68,8 @@ export default function UserRegister() {
       }).then((res)=>{
         //判断是否发送成功
         if(res.data.status === 200){
-          //将返回的验证码储存到cookie中，用于注册时验证
-          let key = 'authcode'
-          let value = res.data.code
-          let twDays = 900 //15分钟
-          document.cookie = `${key} = ${value}; max-age=${twDays}`
+          //调用addCookei，将返回的验证码储存到cookie中，用于注册时验证
+          addCookei('authcode',res.data.code,900)
           alert('验证码发送成功')
         }else{
           alert('验证码发送失败，请重新获取')
@@ -88,6 +95,8 @@ export default function UserRegister() {
         btn.disabled = false;
         btn.style.cursor = "";
       }, 30000);
+    }else{
+      alert('请输入正确邮箱！')
     }
   }
 
@@ -116,10 +125,10 @@ export default function UserRegister() {
       let userpassword = canonicalpassword.test(passw)
       if(!useraccount){
         verify = false;
-        alert('邮箱错误')
+        alert('邮箱格式错误')
       }else if(!userpassword){
         verify = false;
-        alert('密码错误')
+        alert('密码格式错误')
       }
       return verify
     }

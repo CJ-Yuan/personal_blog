@@ -1,29 +1,137 @@
-.headnav{
+@import url('../../common.less');
+
+// PC和移动端通用的样式
+.navwai{
     padding: 10px 36px;
     align-items: center;
     display: flex;
     position: relative;
     z-index: 0;
-    .headnav-pc{
-        font-size: 14px;
+}
+// PC端和移动端样式
+
+//PC端样式
+@media (min-width:956px){
+    .nav-mc{
+        display: none;
+    }
+    .nav{
+    .navwai;
+    .nav-pc{
+        font-size: @fontsize;
         width: 100%;
         height: 100%;
         display: block;
-        .headnav-name{
+        // 名字的样式
+        .nav-name{
             display: flex;
             align-items: center;
             height: 100%;
             float: left;
-            a{
+            span{
+                color: @color;
                 font-size: 18px;
                 font-weight: 700;
             }
         }
-        .headnav-menus{
+        // 菜单样式
+        .nav-menus{
             display: flex;
             align-items: center;
             height: 100%;
             float: right;
+            .nav-menus-mulu{
+                position: relative;
+                display: inline-block;
+                margin:  0 0 0 0.875rem;
+                // 子菜单样式
+                &:hover>.nav-menus-mulu-child{
+                    display: block;
+                }
+                .nav-menus-mulu-img{
+                    cursor: pointer;
+                    border-radius: 50%;
+                    height: 30px;
+                    width: 30px;
+                }
+                .nav-menus-mulu-child{
+                    position: absolute;
+                    display: none;
+                    right: 0px;
+                    width: max-content;
+                    margin-top: 8px;
+                    box-shadow: 0 5px 20px -4px rgb(0 0 0 / 50%);
+                    background-color: #fff;
+                    animation: navmenus .3s ease .1s both;
+                    // 设置一个伪类元素，避免下拉菜单消失太快
+                    &:before{
+                        position: absolute;
+                        top: -8px;
+                        left: 0;
+                        width: 100%;
+                        height: 20px;
+                        content: "";
+                    }
+                    li{
+                        &:hover{
+                            background-color: #80c8f8;
+                        }
+                        a{
+                            line-height: 2;
+                            color: #4c4948;
+                            text-shadow: none;
+                            display: block;
+                            padding: 6px 14px;
+                            transition: all .2s;
+                            &:after{
+                                position: absolute;
+                                bottom: -5px;
+                                left: 0;
+                                z-index: 1;
+                                width: 0;
+                                height: 3px;
+                                background-color: #80c8f8;
+                                content: "";
+                                transition: all .3s ease-in-out;
+                            }
+                        }
+                    }
+                }
+            }
         }
+    }
+}}
+
+// 移动端样式
+
+@media(max-width:956px){
+    .nav{
+        display: none !important;
+    }
+    .nav-mc{
+        .navwai;
+        .nav-mc-wai{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            .nav-mc-name{
+                font-size: 18px;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+
+
+@keyframes navmenus{
+    0%{
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100%{
+        opacity: 1;
+        filter: none;
+        transform: translateY(0px);
     }
 }

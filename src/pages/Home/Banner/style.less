@@ -1,17 +1,18 @@
+@import url('../../../common.less');
 .home-banner{
-    background: url(../../../assets/images/bj.jpg) center center / cover no-repeat;
+    .bg(url('../../../assets/images/bj.jpg'));
     position: absolute;
     top: -60px;
     left: 0;
     right: 0;
     height: 100vh;
     text-align: center;
-    color: #fff;
+    color: @color;
     animation: header-banner 1s;
     .header-informosomes{
         margin-top: 43vh;
         line-height: 1.5;
-        color: #eee;
+        color: @color;
         h1{
             font-size: 2.5rem;
             animation: zoomIn 1s both;
@@ -19,7 +20,7 @@
         .header-motto{
             span{
                 font-size: 1.5rem;
-                color: #eee;
+                color: @color;
             }
             .header-fuhao{
                 opacity: 1;
@@ -35,7 +36,7 @@
         i{
             font-size: 3rem;
             caret-color: rgb(255, 255, 255);
-            color: #eee;
+            color: @color;
             text-shadow: 0.1rem 0.1rem 0.2rem rgb(0 0 0 / 15%);
             line-height: 1.5;
             display: inline-block;

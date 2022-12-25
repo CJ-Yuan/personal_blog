@@ -8,8 +8,8 @@ export default function List(props) {
     useEffect(()=>{
         setTimeout(()=>{
             barrage();
-          },200)
-    })
+        },200)
+    },[])
     function barrage(){
         data.map((e,index)=>{
             //随机获取弹幕出现的高度的Min，Max
@@ -22,7 +22,7 @@ export default function List(props) {
             //弹幕初始位置
             ID.style.cssText=`transform:translate(${randomwidth}px,${randomheight}px);`
             //开启定时器
-            var item = setInterval(()=>{
+            let item = setInterval(()=>{
                 randomwidth--;
                 //通过判断是否开始和结束
                 if(randomwidth >= -200){

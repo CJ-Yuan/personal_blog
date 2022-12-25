@@ -1,22 +1,17 @@
 //这是网站资讯组件
-import React,{useEffect} from 'react'
-//useSelector 用于读取数据 useDispatch 用于获取Dispatch对象
-import {useSelector,useDispatch } from 'react-redux'
-import {gettime} from "../../../../../redux/actions/time"
-import {getvisit} from "../../../../../redux/actions/visit"
+import React,{useEffect,useState} from 'react'
 import api from '../../../../../api/'
 import './style.less'
 
 export default function SiteNews() {
-    const dispatch = useDispatch(); 
-    const runtimes = useSelector( data => data)
+    const [item,setitem] = useState('');
+    const [visit,setvisit] = useState(0);
     useEffect(()=>{
         //访客量
         api.getvisit().then((res)=>{ 
-        let data = res.data
-        //将获取到的访客量存储到redux中
-        dispatch(getvisit(data))
-
+        let data = res.data.data[0]
+        // 将返回的访问量储存到状态中
+        setvisit(data)
         //开启定时器，计算网站运行时间
         setInterval(runtime, 1000);
         })
@@ -36,10 +31,10 @@ export default function SiteNews() {
             var D = Math.floor((c-C)*60);
             //信息写入到DIV中
             let item = A+"天"+B+"小时"+C+"分"+D+"秒"
-            //将计算好的时间存储到redux中
-            dispatch(gettime(item))
+            //将计算好的时间存储到状态中
+            setitem(item)
         }
-        },[dispatch])
+        },[])
 
   return (
     <div className='SiteNews-card'>
@@ -51,14 +46,13 @@ export default function SiteNews() {
             {/* 网站运行时间 */}
             <div style={{textAlign:'center'}}>
                 运行时间<p></p>
-                <span>{runtimes.time.time}</span>
+                {/* <span>{runtimes.time.time}</span> */}
+                <span>{item}</span>
             </div>
             {/* 网站访问人数 */}
             <div style={{textAlign:'center'}}>
                 总访问量<p></p>
-                {
-                    runtimes.visit.visit ? <span>{runtimes.visit.visit[0]}</span> : <span></span>
-                }
+                <span>{visit}</span>
             </div>
         </div>
     </div>

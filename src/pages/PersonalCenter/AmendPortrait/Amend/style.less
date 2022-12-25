@@ -1,0 +1,67 @@
+.amend-overlay{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99999;
+    .amend-cropper-mark{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.1);
+        a{
+            color: #4c4948;
+            text-decoration: none;
+            float: right;
+            padding: 20px;
+            font-size: 3rem;
+            font-weight: 100;
+            text-shadow: 0px 1px rgb(40 40 40 / 30%);
+        }
+    }
+    .amend-cropper-container{
+        background: #fff;
+        z-index: 999;
+        box-shadow: 1px 1px 5px rgb(100 100 100 / 14%);
+        .amend-cropper-image{
+            position: relative;
+            width: 400px;
+            height: 300px;
+            color: #4c4948;
+            img{
+                margin-top: 25%;
+                max-width: 110px;
+                height: 110px;
+                // display: none !important;
+                border-style: none;
+                border-radius: 50%;
+                
+            }
+        }
+        .amend-cropper-footer{
+            display: flex;
+            align-items: stretch;
+            align-content: stretch;
+            justify-content: space-between;
+            button{
+                width: 50%;
+                padding: 15px 0;
+                cursor: pointer;
+                border: none;
+                background: transparent;
+                outline: none;
+                &:hover{
+                    color: #FFF;
+                    background-color: #49b1f5;
+                }
+            }
+        }
+    }
+}

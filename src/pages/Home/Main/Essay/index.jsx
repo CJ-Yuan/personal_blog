@@ -1,92 +1,129 @@
 //这是首页内容组件中的文章渲染组件
-import React from 'react'
+import React,{ useState } from 'react'
+import {  Row, Col ,  } from '@douyinfe/semi-ui';
 import './style.less'
-
 export default function Essay(props) {
-    // 接收到数据
+    const [widths,setwidths] = useState();
+    //接收到数据
     const data = props.data;
+    // 监听屏幕大小变化
+    window.addEventListener('resize',screen)
+
+    function screen(){
+        // 获取当前屏幕宽度
+        let dqwdith = document.documentElement.clientWidth;
+        setwidths(dqwdith);
+    }
   return (
-    <div className='essay'>
-        {
+    <div className='es'>
+        {   
             // 渲染数据
             data.map((data,index)=>{
                 const {channelName,title,time,img,link} = data
-                if(index%2 === 0){
-                    return(
-                        <div className='text-link' key={index}>
-                            {/* 图片 */}
-                            <div className='text-link-img'>
-                                <a href={link}>
-                                    <div className='text-link-wai' style={{width:'100%',height:'100%'}}>
-                                        <div className='text-img-kuan' style={{
-                                            backgroundImage:`url(${img})`,
-                                            backgroundPosition:'center center'
-                                        }}>
-                                        </div>
+                if(widths > 768){
+                    if(index%2 === 0){
+                        return(
+                        <Row key={index}  className='es-kuang'>
+                        {/* 图片 */}
+                        <Col span={24} md={11} className='es-img'>
+                            <a href={link}>
+                                <div className='es-img-bg' style={{width:'100%',height:'100%'}}>
+                                    <div className='es-img-bg-src' style={{
+                                        backgroundImage:`url(${img})`,
+                                        backgroundPosition:'center center'
+                                    }}>
                                     </div>
+                                </div>
+                            </a>
+                        </Col>
+                        {/* 文本信息 */}
+                        <Col span={24} md={13} className='es-text'>
+                            <div className='es-text-title'>
+                                <a href={link}>{title}</a>
+                            </div>
+                            <div className='es-text-info'>
+                                <i className='iconfont icon-calendar'></i>
+                                {time}
+                                <span>|</span>
+                                <a href='/'>
+                                    <i className='iconfont icon-jiaobiao'></i>
+                                {channelName}
                                 </a>
                             </div>
-                            {/* 文本信息 */}
-                            <div className='text-link-item'>
-                                {/* 标题 */}
-                                <div className='essay-title' style={{lineHeight:'1.4'}}>
-                                    <a href={link}>{title}</a>
-                                </div>
-                                {/* 时间 标签 */}
-                                <div className='essay-info'>
-                                    <i className='iconfont icon-calendar'></i>
-                                    {time}
-                                    <span className='essay-info-span'>|</span>
-                                    <a href={link} className='essay-source'>
-                                        <i className='iconfont icon-jiaobiao'></i>
-                                        {channelName}
-                                    </a>
-                                </div>
-                                {/* 文本内容 */}
-                                <div className='essay-content'>这个是文本内容</div>
+                            <div className='es-text-content'>这是文本内容</div>
+                        </Col>
+                        </Row>
+                        )
+                    }else{
+                        return(
+                        <Row key={index}  className='es-kuang'>
+                        {/* 文本信息 */}
+                        <Col span={24} md={13} className='es-text'>
+                            <div className='es-text-title'>
+                                <a href={link}>{title}</a>
                             </div>
-                        </div>
-                    )
+                            <div className='es-text-info'>
+                                <i className='iconfont icon-calendar'></i>
+                                {time}
+                                <span>|</span>
+                                <a href='/'>
+                                    <i className='iconfont icon-jiaobiao'></i>
+                                {channelName}
+                                </a>
+                            </div>
+                            <div className='es-text-content'>这是文本内容</div>
+                        </Col>
+                        {/* 图片 */}
+                        <Col span={24} md={11} className='es-img'>
+                            <a href="/">
+                                <div className='es-img-bg' style={{width:'100%',height:'100%'}}>
+                                    <div className='es-img-bg-src' style={{
+                                        backgroundImage:`url(${img})`,
+                                        backgroundPosition:'center center'
+                                    }}>
+                                    </div>
+                                </div>
+                            </a>
+                        </Col>
+                        </Row>
+                        )
+                    }
                 }else{
                     return(
-                        <div className='text-link' key={index}>
-                            {/* 文本信息 */}
-                            <div className='text-link-item'>
-                                {/* 标题 */}
-                                <div className='essay-title' style={{lineHeight:'1.4'}}>
-                                    <a href={link}>{title}</a>
-                                </div>
-                                {/* 时间 标签 */}
-                                <div className='essay-info'>
-                                    <i className='iconfont icon-calendar'></i>
-                                    {time}
-                                    <span className='essay-info-span'>|</span>
-                                    <a href={link} className='essay-source'>
-                                        <i className='iconfont icon-jiaobiao'></i>
-                                        {channelName}
-                                    </a>
-                                </div>
-                                {/* 文本内容 */}
-                                <div className='essay-content'>这个是文本内容</div>
-                            </div>
-                            {/* 图片 */}
-                            <div className='text-link-img'>
-                                <a href={link}>
-                                    <div className='text-link-wai' style={{width:'100%',height:'100%'}}>
-                                        <div className='text-img-kuan' style={{
-                                            backgroundImage:`url(${img})`,
-                                            backgroundPosition:'center center'
-                                        }}>
-                                        </div>
+                        <Row key={index}  className='es-kuang'>
+                        {/* 图片 */}
+                        <Col span={24} md={11} className='es-img'>
+                            <a href={link}>
+                                <div className='es-img-bg' style={{width:'100%',height:'100%'}}>
+                                    <div className='es-img-bg-src' style={{
+                                        backgroundImage:`url(${img})`,
+                                        backgroundPosition:'center center'
+                                    }}>
                                     </div>
+                                </div>
+                            </a>
+                        </Col>
+                        {/* 文本信息 */}
+                        <Col span={24} md={13} className='es-text'>
+                            <div className='es-text-title'>
+                                <a href={link}>{title}</a>
+                            </div>
+                            <div className='es-text-info'>
+                                <i className='iconfont icon-calendar'></i>
+                                {time}
+                                <span>|</span>
+                                <a href='/'>
+                                    <i className='iconfont icon-jiaobiao'></i>
+                                {channelName}
                                 </a>
                             </div>
-                        </div>
-                    )
+                            <div className='es-text-content'>这是文本内容</div>
+                        </Col>
+                        </Row>
+                        )
                 }
             })
         }
     </div>
   )
 }
-

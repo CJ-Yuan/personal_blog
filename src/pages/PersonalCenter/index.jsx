@@ -1,47 +1,18 @@
 //这是个人中心组件
 import React,{useEffect,useState} from 'react'
 //useSearchParams用于接收search参数 useLocation用于接收路由信息
-import { useLocation,useNavigate } from 'react-router-dom'
-//useSelector 用于读取数据 
-import {useSelector} from 'react-redux'
-import api from '../../api'
+import { useLocation } from 'react-router-dom'
+import AmendPortrait from './AmendPortrait';
 import './style.less'
 
 export default function PersonalCenter() {
   // 用于储存用户信息
   const [userinfos,setuserinfos] = useState({});
-  //读取redux中的user数据
-  const data = useSelector(data => data.user.user)
   //接收路由信息
   const location = useLocation()
-  // 用于路由跳转
-  const navigate = useNavigate();
-  // console.log(data)  
-
   useEffect(()=>{
-    // 判断是否登录
-    if(location.state){
-      // 登录后判断 redux中user是否存在数据,存在的话发送请求获取用户信息
-        console.log('登录成功',data)
-        if(data){
-          let ID = data.id
-          api.getuserinfo({ID}).then((res)=>{
-            if(res.data.status === 200){
-              setuserinfos(res.data.data)
-            }else{
-              alert('获取用户信息失败，请稍后再试！')
-            }
-          })
-        }else{
-          console.log('不存在')
-        }
-    }else{
-      // 如果用户没有登录，跳转到登录页面
-      navigate('/users/userslogin')
-    }
-    
-    
-  },[data,location,navigate])
+    setuserinfos(location.state.data)
+  },[location])
 
   return (
     <main className='personal' style={{padding:'60px 0px 136px'}}>
@@ -58,20 +29,16 @@ export default function PersonalCenter() {
                     <span>基本信息</span>
                 </div>
                 <div className='personal-info-wrapper'>
-                    <div className='personal-info-tou'>
-                        <button className='personal-button-img'>
-                            <div className='personal-imge'>
-                            <img src={require('../../assets/images/头像.jpg')} alt="" />
-                            </div>
-                        </button>
-                    </div>
+                    {/* 修改头像 */}
+                    <AmendPortrait image={userinfos.user_pic}/>
                     <div className='personal-info-geren'>
                         <span>名称：</span>
-                        <input type="text" name="name" placeholder={userinfos.username} className='personal-yi' />
+                        <input type="text" name="name" placeholder={userinfos.name} className='personal-yi' />
                         <span>简介：</span>
                         <input type="text" name="nickname" placeholder={userinfos.nickname} className='personal-yi' />
                         <span>邮箱：</span>
-                        <input type="text" name="email" placeholder={userinfos.email} className='personal-yi' />
+                        {/* <input type="text" name="email" placeholder={userinfos.email} className='personal-yi' /> */}
+                        <span className='personal-yi'>{userinfos.email}</span>
                         <button className='geren-button'>修改</button>
                     </div>
                 </div>

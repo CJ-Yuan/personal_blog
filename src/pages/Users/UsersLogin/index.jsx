@@ -2,6 +2,7 @@
 import React,{useState} from 'react'
 //useNavigate用于路由跳转
 import { useNavigate} from "react-router-dom"
+import {addCookei} from '../../../utils/operatecookie'
 import api from '../../../api';
 import './style.less'
 
@@ -11,7 +12,9 @@ export default function UsersLogin() {
   const [username,setUsername] = useState("");
   const [password,setPassword] = useState("");
   const navigate = useNavigate();
-  // 定义一个验证时执行的函数
+
+
+  // 定义一个登录验证时执行的函数
   function canonical(user,passw){
     let verify = true;
     //使用正则限制账号和密码
@@ -31,7 +34,6 @@ export default function UsersLogin() {
     return verify
   }
 
-
   // form表单的回调函数
   function onSubmitHandle(event){
     //取消 form 跳转
@@ -41,17 +43,14 @@ export default function UsersLogin() {
     // 通过验证后发送数据
     if(result){
       api.postlogin({
-        username:username,
+        email:username,
         password:password
       }).then((res)=>{
         // 请求成功后，将返回的数据进行判断
         switch(res.data.status){
           case 200:
-            // 将返回接收到的Token储存到cookie中,有效期为10个小时
-            let key = 'token'
-            let value = res.data.token
-            let twDays = 36000 //10个小时
-            document.cookie = `${key}=${value}; Path=/; max-age=${twDays};`
+            // 将返回接收到的Token储存到cookie中,有效期为10个小时,并跳转到home页面
+            addCookei('token',res.data.token,36000)
             alert('登录成功');
             navigate('/home')
             break;

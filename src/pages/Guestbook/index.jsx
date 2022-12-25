@@ -1,11 +1,16 @@
 //这是留言板组件
 import React,{useRef,useEffect} from 'react'
+//useSelector 用于读取数据 
+import {useSelector} from 'react-redux'
 import './style.less'
 import Message from '../../components/Message'
 import api from '../../api'
 
 export default function Guestbook() {
   const init = useRef();
+  // 读取redux中的用户数据
+  const data = useSelector(data => data.userinfo.userinfo)
+
   useEffect(()=>{
     document.title = '留言板'
   })
@@ -24,8 +29,7 @@ export default function Guestbook() {
         default:
           //发送数据
           api.sendguestbook({
-            id:'测试',
-            users:'游客',
+            users:data.name,
             message:value
           }).then((res)=>{
             if(res.data.status === 200){
