@@ -1,22 +1,22 @@
 import React,{useEffect,useState} from 'react'
+import { Layout } from '@douyinfe/semi-ui';
 import HeadNav from './components/HeadNav'
-import Footer from './components/Footer'
-// 用于token登录
-import { tokenlogin } from './utils/tookenlogin'
+import TopNav from './components/HeadNav/TopNav';
+import Footers from './components/Footer'
+// 用于token获取用户数据
+import { userinfo } from './utils/tookenlogin'
 // useRoutes 用于配置路由表 useLocation用于获取当前URL对象
 import { useRoutes,useLocation} from 'react-router-dom'
 import router from './router'
 
-//useSelector 用于读取数据 useDispatch 用于获取Dispatch对象
-import {useSelector} from 'react-redux'
 // 导入css
 import './assets/font_3777398_kq9bh0qug6/iconfont.css'
 import './assets/font_3qv7jx9tfny/iconfont.css'
 import './app.less'
 
-export default function App() {
-  //读取redux中的数据
-  const data = useSelector(data => data)
+const App = ()=> {
+  const { Header, Footer } = Layout;
+
   //获取前路由路径
   const [url,useurl] = useState('');
   //用于判断是否需要渲染底部组件
@@ -27,10 +27,19 @@ export default function App() {
   const element = useRoutes(router)
   // 获取当前路由路径
   const location = useLocation()
-
+  // 监听滚动条事件的回调，用于导航栏
+  const roll = () => {
+    // 获取滚动条的位置 0 代表着在最顶部 
+    let yf = window.pageYOffset;
+    let header = document.getElementsByClassName('header-app')[0]
+    if(yf > 10 ){
+      header.style.cssText = 'background-color:rgb(115, 113, 113);opacity:0.8;';
+    }else{
+      header.style.cssText = '';
+    }
+  }
 
   useEffect(()=>{
-
     //判断当前路由,是否需要footer
     useurl(location.pathname)
     switch(url){
@@ -55,40 +64,35 @@ export default function App() {
       default:
         setfooters(false)
     }
-    //用于执行token登录,后进行判断
+  // 判断是否是登录状态
     if(succeed){
     }else{
       // 由于返回的的是 Promise 使用需要then获取里面的值，并进行判断是否登录成功
-      tokenlogin(data).then((e)=>{
+      userinfo().then((e)=>{
         if(e){
           setsucceed(true);
         }else{
           setsucceed(false);
         }
-      })
-      
-      // console.log(login,'123123')
-      
+      });
     }
-    
-  },[location.pathname,data,url])
+    // 监听滚动条事件
+    window.addEventListener('scroll',roll)
+  },[location.pathname,url,succeed])
+  
 return (
     <div className='app'>
-      <header 
-        style={{
-          height:'60px',
-          marginTop:'0px',
-          transform:'translateY(0px)',
-          left:'0px',
-          right:'0px'
-      }} className="header-app">
+      <Header className="header-app">
         <HeadNav succeed={succeed}/>
-      </header>
+        <TopNav />
+      </Header>
         {element}
-        
         {
-          footers? <footer><Footer /></footer> : ''
+          footers? <Footer><Footers /></Footer> : ''
         }
     </div>
   )
 }
+
+
+export default App
